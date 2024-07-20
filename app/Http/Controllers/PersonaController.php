@@ -24,6 +24,16 @@ class PersonaController extends Controller
 return response()->json(["error mesage" => "Error"]);
     }
 
+    public function ListarTodos(Request $request)
+    {
+        return PersonaModel::all();
+    }
+
+    public function BuscarUnId(Request $request, $id)
+    {
+        return PersonaModel::findOrFail($id);
+    }
+    
     public function Eliminar(Request $request, $id)
     {
         $usuario = PersonaModel::findOrFail($id);
