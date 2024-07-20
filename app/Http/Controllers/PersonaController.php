@@ -28,5 +28,11 @@ return response()->json(["error mesage" => "Error"]);
     {
         return PersonaModel::findOrFail($id);
     }
-
+    
+    public function Eliminar(Request $request, $id)
+    {
+        $usuario = PersonaModel::findOrFail($id);
+        $usuario->delete();
+        return ['mensaje' => 'Usuario Eliminado'];
+    }
 }
