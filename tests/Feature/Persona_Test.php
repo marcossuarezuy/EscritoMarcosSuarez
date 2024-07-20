@@ -87,4 +87,51 @@ class usuarioTest extends TestCase
         $response->assertJsonStructure($estructuraEsperable);
     }
 
+    public function test_BuscarUsuario()
+    {
+        $estructuraEsperable = [
+            'id',
+            'nombre',
+            'apellido',
+            'telefono',
+            'created_at',
+            'updated_at',
+        ];
+
+        $response = $this->get('/api/usuario/1');
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+    }
+
+    public function test_EliminarUsuario()
+    {
+        $response = $this->delete('/api/usuario/1');
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['mensaje']);
+        $response->assertJsonFragment(['mensaje' => 'Post Eliminado!']);
+
+        $this->assertDatabaseMissing('usuario', [
+            'id' => '1',
+            'deleted_at' => null
+        ]);
+    }
+
+    public function test_ModificarUsuarioQueNoExiste()
+    {
+        $response = $this->put('/api/usuario/100000');
+        $response->assertStatus(404);
+    }
+
+    public function test_BuscarUnUsuarioQueNoExiste()
+    {
+        $response = $this->get('/api/usuario/100000');
+        $response->assertStatus(404);
+    }
+
+    public function test_EliminarUsuarioQueNoExiste()
+    {
+        $response = $this->delete('/api/usuario/100000');
+        $response->assertStatus(404);
+    }
+
 }
