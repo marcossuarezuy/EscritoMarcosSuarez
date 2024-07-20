@@ -24,4 +24,23 @@ class PersonaController extends Controller
 return response()->json(["error mesage" => "Error"]);
     }
 
+<<<<<<< Updated upstream
+=======
+    public function Eliminar(Request $request, $id)
+    {
+        $usuario = PersonaModel::findOrFail($id);
+        $usuario->delete();
+        return ['mensaje' => 'Usuario Eliminado'];
+    }
+
+    public function Modificar(Request $request, $id)
+    {
+        $usuario = PersonaModel::findOrFail($id);
+        $usuario->nombre = $request->post("nombre");
+        $usuario->apellido = $request->post("apellido");
+        $usuario->telefono = $request->post("telefono");
+        $usuario->save();
+        return $usuario;
+    }
+>>>>>>> Stashed changes
 }
