@@ -24,8 +24,6 @@ class PersonaController extends Controller
 return response()->json(["error mesage" => "Error"]);
     }
 
-<<<<<<< Updated upstream
-=======
     public function Eliminar(Request $request, $id)
     {
         $usuario = PersonaModel::findOrFail($id);
@@ -42,5 +40,4 @@ return response()->json(["error mesage" => "Error"]);
         $usuario->save();
         return $usuario;
     }
->>>>>>> Stashed changes
 }
