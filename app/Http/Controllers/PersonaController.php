@@ -23,6 +23,11 @@ class PersonaController extends Controller
             }
 return response()->json(["error mesage" => "Error"]);
     }
+
+    public function BuscarUnId(Request $request, $id)
+    {
+        return PersonaModel::findOrFail($id);
+    }
     
     public function Eliminar(Request $request, $id)
     {
