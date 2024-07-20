@@ -26,7 +26,7 @@ return response()->json(["error mesage" => "Error"]);
 
     public function ListarTodos(Request $request)
     {
-        return PersonaController::all();
+        return PersonaModel::all();
     }
 
 }
