@@ -17,24 +17,23 @@ class usuarioTest extends TestCase
             'telefono',
             'created_at',
             'updated_at',
-
         ];
 
         $datosDeUsuario = [
             "nombre" => "Ana",
             "apellido" => "Alvez",
-            "telefono" => 26006060
+            "telefono" => 26006060,
         ];
 
-        $response = $this->post('/api/post', $datosDeUsuario);
-        $response->assertStatus(201);
+        $response = $this->post('/api/usuario', $datosDeUsuario);
+        $response->assertStatus(200);
         $response->assertJsonStructure($estructuraEsperable);
         $response->assertJsonFragment($datosDeUsuario);
 
         $this->assertDatabaseHas('usuario', [
             "nombre" => "Ana",
             "apellido" => "Alvez",
-            "telefono" => 26006060
+            "telefono" => 26006060,
         ]);
     }
 
@@ -48,13 +47,12 @@ class usuarioTest extends TestCase
             'created_at',
             'updated_at',
 
-
         ];
 
         $datosDeUsuario = [
             "nombre" => "Juan",
             "apellido" => "Suarez",
-            "telefono" => 26005050
+            "telefono" => 26005050,
         ];
 
 
@@ -65,7 +63,7 @@ class usuarioTest extends TestCase
         $this->assertDatabaseHas('usuario', [
             "nombre" => "Juan",
             "apellido" => "Suarez",
-            "telefono" => 26005050
+            "telefono" => 26005050,
         ]);
     }
 
@@ -98,9 +96,16 @@ class usuarioTest extends TestCase
             'updated_at',
         ];
 
+        $usuario = [
+            "nombre" => "Juan",
+            "apellido" => "Suarez",
+            "telefono" => 26005050,
+        ];
+
         $response = $this->get('/api/usuario/1');
         $response->assertStatus(200);
         $response->assertJsonStructure($estructuraEsperable);
+        $this->assertDatabaseHas('usuario', $usuario);
     }
 
     public function test_EliminarUsuario()
@@ -108,7 +113,7 @@ class usuarioTest extends TestCase
         $response = $this->delete('/api/usuario/1');
         $response->assertStatus(200);
         $response->assertJsonStructure(['mensaje']);
-        $response->assertJsonFragment(['mensaje' => 'Post Eliminado!']);
+        $response->assertJsonFragment(['mensaje' => 'Usuario Eliminado']);
 
         $this->assertDatabaseMissing('usuario', [
             'id' => '1',
@@ -133,5 +138,4 @@ class usuarioTest extends TestCase
         $response = $this->delete('/api/usuario/100000');
         $response->assertStatus(404);
     }
-
 }
